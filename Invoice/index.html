@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Invoice — Fivoo Style</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- html2pdf (used for direct PDF export) -->
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+  <div class="invoice-app" id="invoiceApp">
+    <!--  BRAND / LOGO  -->
+    <section class="brand-row">
+      <!--logo.png-->
+      <img id="logo" src="logo.png" alt="Company Logo" />
+      <div class="brand-right">
+        <h1>INVOICE</h1>
+        <div class="meta-grid">
+          <label>Invoice #<input id="invNo" type="text" value="INV-001"></label>
+          <label>Date<input id="invDate" type="date"></label>
+          <label>Due Date<input id="dueDate" type="date"></label>
+        </div>
+      </div>
+    </section>
+
+    <!-- logo upload (hidden in print via .no-print) -->
+    <!-- <div class="logo-tools no-print">
+      <label class="btn ghost">
+        Upload Logo
+        <input id="logoUpload" type="file" accept="image/*" hidden>
+      </label>
+    </div> -->
+
+    <!--  BILLING BLOCKS  -->
+    <section class="cards-2">
+      <div class="card">
+        <h3>From</h3>
+        <input type="text" placeholder="Your Company Name" value="Fivoo">
+        <input type="text" placeholder="Address" value="Street, City, Country">
+        <input type="email" placeholder="Email" value="hello@fivoo.site">
+      </div>
+
+      <div class="card">
+        <h3>Bill To</h3>
+        <input type="text" placeholder="Client Name">
+        <input type="text" placeholder="Client Address">
+        <input type="email" placeholder="Client Email">
+      </div>
+    </section>
+
+    <!--  ITEMS TABLE  -->
+    <div class="table-wrap">
+      <table id="itemsTable">
+        <thead>
+          <tr>
+            <th class="col-desc">Description</th>
+            <th class="col-qty">Qty</th>
+            <th class="col-rate">Rate</th>
+            <th class="col-line">Line Total</th>
+            <th class="col-act no-print">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- starter -->
+          <tr>
+            <td><input type="text" placeholder="Service / Product" value="Website Design"></td>
+            <td><input type="number" min="0" step="1" value="1"></td>
+            <td><input type="number" min="0" step="0.01" value="500"></td>
+            <td class="line-total">500.00</td>
+            <td class="no-print">
+              <button class="btn danger btn-remove">Remove</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- row actions -->
+      <div class="row-actions no-print">
+        <button id="addRow" class="btn" >+ Add Item</button>
+        <button id="clearRows" class="btn ghost">Clear All</button>
+      </div>
+    </div>
+
+    <!--  TOTALS PANEL  -->
+    <section class="totals-grid">
+      <div class="card notes">
+        <h3>Notes</h3>
+        <textarea placeholder="Additional notes or terms...">Thanks for your business!</textarea>
+      </div>
+
+      <div class="card calc">
+        <div class="calc-row">
+          <span>Subtotal</span>
+          <strong id="subtotal">0.00</strong>
+        </div>
+
+        <!-- Tax and Discount inputs (percent) -->
+        <div class="calc-row">
+          <label>Tax %<input id="taxPct" type="number" min="0" step="0.01" value="0"></label>
+          <strong id="taxAmt">0.00</strong>
+        </div>
+
+        <div class="calc-row">
+          <label>Discount %<input id="discPct" type="number" min="0" step="0.01" value="0"></label>
+          <strong id="discAmt">0.00</strong>
+        </div>
+
+        <div class="calc-row grand">
+          <span>Grand Total(USD)</span>
+          <strong id="grandTotal">0.00</strong>
+        </div>
+      </div>
+    </section>
+
+    <!--  ACTIONS  -->
+    <div class="footer-actions no-print">
+      <button id="printBtn" class="btn">Print</button>
+      <!-- <button id="pdfBtn" class="btn accent">Download PDF</button>
+      <div class="print-hint"> -->
+        <!-- Short hint if browser strips background colors in print preview -->
+        <!-- <small>If colors disappear in print preview, enable “Background graphics/printing” in the print dialog.</small>
+      </div> -->
+    </div>
+
+    <footer class="footnote">
+      <p>Payment Method: <input class="extra" type="text" placeholder="Add Payment Method" value="Bank Transfer/Paypal"></p>
+      <p>Thank you for choosing Fivoo.</p>
+    </footer>
+  </div>
+
+  <!-- Script -->
+  <script src="script.js"></script>
+</body>
+</html>
